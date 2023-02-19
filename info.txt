@@ -1,0 +1,25 @@
+This is using typscript and the experimental version of nextjs 13 that uses the app directory. 
+
+Also using tailwindcss -> follow config guide at tailwindcss.com for nextjs 13
+
+Backend is using Railway Postgres server
+
+Using axios for data fetching 
+  -> npm i axios 
+
+Using react hot toast
+  -> npm i react-hot-toast
+
+Prisma is being used to communicate with backend. Lets you communicate with any database with pretty much just one syntax (using typescript)
+    - need to put railway db connection url in the .env file
+    - npm install prisma typescript ts-node @types/node --save-dev
+    - npx prisma init
+    - npm install @prisma/client
+    - when you make changes to your model client-side, you have to run a migration to update it on the 
+      railway server side -> npx prisma migrate dev -> then give the migration a name
+
+
+Using next auth 
+    -> npm install next-auth 
+    -> npm i @next-auth/prisma-adapter
+    -> using server-side authentication so we don't have any flickering while user loads
