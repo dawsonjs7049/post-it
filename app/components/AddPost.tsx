@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react"
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import axios, { AxiosError } from 'axios';
 import toast from 'react-hot-toast';
 
@@ -9,6 +9,8 @@ export default function CreatePost()
 {
     const [title, setTitle] = useState("");
     const [isDisabled, setIsDisabled] = useState(false);
+
+    const queryClient = useQueryClient()
 
     let toastPostID: string
 
@@ -18,7 +20,6 @@ export default function CreatePost()
             onError: (error) => {
                 if(error instanceof AxiosError)
                 {
-                    console.log(error);
                     toast.error(error?.response?.data.message, { id: toastPostID })
                 }
 
@@ -26,9 +27,12 @@ export default function CreatePost()
             },
             onSuccess: (data) => {
                 toast.success("Post Has Been Uploaded", { id: toastPostID });
+                
                 setIsDisabled(false);
                 setTitle("");
-                console.log(data)
+
+                // will invalidate the cache and force a new fetch so we can see the new post
+                queryClient.invalidateQueries(["posts"])
             }
         }
     )

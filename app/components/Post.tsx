@@ -7,7 +7,7 @@ type Post = {
     avatar: string,
     name: string,
     postTitle: string,
-    id: number,
+    id: string,
     comments: Object[]
 }
 
@@ -24,7 +24,7 @@ export default function Posts({ comments, avatar, name, postTitle, id}: Post)
             </div>
             <div className="flex gap-4 cursor-pointer items-center">
                 <Link href={`/post/${id}`} >
-                    <p className="text-sm font-bold text-gray-700">Comments</p>
+                    <p className="text-sm font-bold text-gray-700">{ comments?.length} Comments</p>
                 </Link>
             </div>
         </div>
